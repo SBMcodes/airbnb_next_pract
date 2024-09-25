@@ -1,0 +1,91 @@
+"use client";
+
+import React, { useState, useCallback } from "react";
+import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
+import { AiFillGithub } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+
+import useRegisterModal from "@/app/hooks/useRegisterModal";
+import axios from "axios";
+import Modal from "./Modal";
+import Heading from "../Heading";
+import Input from "../inputs/Input";
+import toast from "react-hot-toast";
+
+const RegisterModal = () => {
+  const registerModal = useRegisterModal();
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Form Controls using useForm
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+    axios
+      .post("/api/register", data)
+      .then(() => {
+        registerModal.onClose();
+      })
+      .catch((e) => {
+        toast.error("Something went wrong!");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const bodyContent = (
+    <div className="flex flex-col gap-4">
+      <Heading title="Welcome to Airbnb" subTitle="Create an account!" />
+      <Input
+        id="name"
+        label="Name"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="email"
+        label="Email"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="password"
+        type="password"
+        label="Password"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+    </div>
+  );
+
+  return (
+    <Modal
+      isOpen={registerModal.isOpen}
+      disabled={isLoading}
+      title="Register"
+      actionLabel="Continue"
+      onClose={registerModal.onClose}
+      onSubmit={handleSubmit(onSubmit)}
+      body={bodyContent}
+    />
+  );
+};
+
+export default RegisterModal;
