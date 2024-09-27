@@ -1,16 +1,18 @@
 "use client";
+import { RegisterSchema } from "@/schemas/RegisterSchema";
 import React from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
+import { z } from "zod";
 
 interface InputProps {
-  id: string;
+  id: "name" | "email" | "password";
   label: string;
   type?: string;
   disabled?: boolean;
   formatPrice?: boolean;
   required?: boolean;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<z.infer<typeof RegisterSchema>>;
   errors: FieldErrors;
 }
 
