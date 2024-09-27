@@ -1,4 +1,5 @@
 "use client";
+import { LoginSchema } from "@/schemas/LoginSchema";
 import { RegisterSchema } from "@/schemas/RegisterSchema";
 import React from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
@@ -12,7 +13,7 @@ interface InputProps {
   disabled?: boolean;
   formatPrice?: boolean;
   required?: boolean;
-  register: UseFormRegister<z.infer<typeof RegisterSchema>>;
+  register: any;
   errors: FieldErrors;
 }
 
