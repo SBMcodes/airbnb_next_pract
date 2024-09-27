@@ -103,12 +103,12 @@ const LoginModal = () => {
     <Modal
       isOpen={loginModal.isOpen}
       disabled={isLoading}
-      title="Register"
+      title="Login"
       actionLabel="Login"
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
-      footer={footerContent}
+      // footer={footerContent}
     />
   );
 };
