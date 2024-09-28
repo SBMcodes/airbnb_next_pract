@@ -19,9 +19,12 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import { login } from "@/actions/login";
 import { LoginSchema } from "@/schemas/LoginSchema";
 import { useRouter } from "next/navigation";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
+
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -37,6 +40,11 @@ const LoginModal = () => {
       password: "",
     },
   });
+
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, []);
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     setIsLoading(true);
@@ -73,7 +81,7 @@ const LoginModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
+      {/* <Button
         outline
         label={"Continue with google"}
         icon={FcGoogle}
@@ -84,15 +92,15 @@ const LoginModal = () => {
         label={"Continue with Github"}
         icon={AiFillGithub}
         onClick={() => {}}
-      />
+      /> */}
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row items-center gap-2">
-          <div>Already have an account?</div>
+          <div>Don't have an account?</div>
           <div
-            onClick={loginModal.onClose}
+            onClick={toggle}
             className="text-blue-400 cursor-pointer hover:underline"
           >
-            Login
+            Register
           </div>
         </div>
       </div>
@@ -108,7 +116,7 @@ const LoginModal = () => {
       onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
-      // footer={footerContent}
+      footer={footerContent}
     />
   );
 };

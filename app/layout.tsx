@@ -10,6 +10,7 @@ import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "./components/modals/LoginModal";
 import { SessionProvider } from "next-auth/react";
 import { getCurrentUser } from "@/actions/getCurrentUser";
+import RentModal from "./components/modals/RentModal";
 
 export const metadata: Metadata = {
   title: "Airbnb",
@@ -33,6 +34,7 @@ export default async function RootLayout({
           <ToasterProvider />
           <LoginModal />
           <RegisterModal />
+          <RentModal />
           <Navbar currentUser={currentUser} />
         </ClientOnly>
         {children}

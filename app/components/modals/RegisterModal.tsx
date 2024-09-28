@@ -17,10 +17,18 @@ import { register as registerAction } from "@/actions/register";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
+
   const [isLoading, setIsLoading] = useState(false);
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, []);
 
   // Form Controls using useForm
   const {
@@ -90,7 +98,7 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
+      {/* <Button
         outline
         label={"Continue with google"}
         icon={FcGoogle}
@@ -101,12 +109,12 @@ const RegisterModal = () => {
         label={"Continue with Github"}
         icon={AiFillGithub}
         onClick={() => {}}
-      />
+      /> */}
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row items-center gap-2">
           <div>Already have an account?</div>
           <div
-            onClick={registerModal.onClose}
+            onClick={toggle}
             className="text-blue-400 cursor-pointer hover:underline"
           >
             Login
@@ -125,7 +133,7 @@ const RegisterModal = () => {
       onClose={registerModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
-      // footer={footerContent}
+      footer={footerContent}
     />
   );
 };

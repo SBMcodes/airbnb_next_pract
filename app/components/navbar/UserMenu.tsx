@@ -8,6 +8,7 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import { logout } from "@/actions/logout";
 import { useRouter } from "next/navigation";
 import { User } from "@prisma/client";
+import useRentModal from "@/app/hooks/useRentModal";
 
 interface UserMenuProps {
   currentUser: User | null;
@@ -17,10 +18,19 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
   const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
 
   const [isOpen, setIsOpen] = useState(false);
 
   // const { data, status, update } = useSession();
+
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      loginModal.onOpen();
+      return;
+    }
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
 
   const status = "";
   const toggleOpen = useCallback(() => {
@@ -30,10 +40,10 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={onRent}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
-          AirBnb
+          Airbnb your home
         </div>
         <div
           className="p-4 md:px-4 md:py-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
@@ -70,6 +80,10 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                   <MenuItem onClick={() => {}} label={`My Favourites`} />
                   <MenuItem onClick={() => {}} label={`My Reservations`} />
                   <MenuItem onClick={() => {}} label={`My Properties`} />
+                  <MenuItem
+                    onClick={rentModal.onOpen}
+                    label={`AirBnb Your Home`}
+                  />
                   <hr />
                   <MenuItem
                     onClick={() => {
