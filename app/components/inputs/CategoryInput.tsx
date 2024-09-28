@@ -24,8 +24,8 @@ const CategoryInput = ({
       }`}
     >
       <div className="flex flex-row justify-evenly items-center">
-        <Icon size={30} />
-        <div className="font-semibold">{label}</div>
+        <Icon className="text-neutral-600" size={30} />
+        <div className="font-semibold select-none">{label}</div>
       </div>
     </div>
   );
