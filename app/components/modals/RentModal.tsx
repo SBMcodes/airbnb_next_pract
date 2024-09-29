@@ -7,6 +7,7 @@ import { categoryList } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
 import CountrySelect from "../inputs/CountrySelect";
+import dynamic from "next/dynamic";
 
 enum STEPS {
   CATEGORY,
@@ -44,6 +45,12 @@ const RentModal = () => {
   });
 
   const categoryValue = watch("category");
+  const locationValue = watch("location");
+
+  const Map = useMemo(
+    () => dynamic(() => import("../Map"), { ssr: false }),
+    [locationValue]
+  );
 
   const setCustomValue = (id: string, value: any) => {
     console.log(value);
@@ -132,6 +139,7 @@ const RentModal = () => {
             setCustomValue("location", value);
           }}
         />
+        <Map center={locationValue?.latlng} />
       </div>
     );
   }
