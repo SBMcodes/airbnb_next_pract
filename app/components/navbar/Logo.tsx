@@ -11,7 +11,7 @@ const Logo = () => {
         router.push("/");
       }}
       alt="logo"
-      className="hidden md:block cursor-pointer"
+      className="hidden md:block cursor-pointer select-none"
       width={100}
       height={100}
       src={"/images/logo.png"}
