@@ -7,7 +7,7 @@ import { BiDollar } from "react-icons/bi";
 import { z } from "zod";
 
 interface InputProps {
-  id: "name" | "email" | "password";
+  id: "name" | "email" | "password" | string;
   label: string;
   type?: string;
   disabled?: boolean;
