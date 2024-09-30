@@ -93,8 +93,12 @@ const RentModal = () => {
       return;
     }
     setIsLoading(true);
-    await createPost(data);
-    toast.success("New listing created!");
+    const result = await createPost(data);
+    if (result["error"]) {
+      toast.error(result["error"]);
+    } else {
+      toast.success("New listing created!");
+    }
     router.refresh();
     reset();
     setStep(STEPS.CATEGORY);

@@ -20,13 +20,19 @@ const createPost = async (data: any) => {
     description,
   } = data;
 
+  let error = null;
+
   Object.keys(data).forEach((key: any) => {
-    if (!data[key]) {
-      return { error: "All fields are required!" };
+    if (!data[key] || data[key] == null) {
+      error = { error: "All fields are required!" };
     }
   });
 
-  const listing = await db.listing.create({
+  if (error) {
+    return error;
+  }
+
+  await db.listing.create({
     data: {
       userId: currentUser.id,
       title,
