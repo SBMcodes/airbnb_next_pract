@@ -20,8 +20,15 @@ import { usePathname } from "next/navigation";
 import { FaSkiing } from "react-icons/fa";
 import { BsSnow } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
+import { IconType } from "react-icons";
 
-export const categoryList = [
+export interface categoryType {
+  label: string;
+  description: string;
+  icon: IconType;
+}
+
+export const categoryList: categoryType[] = [
   {
     label: "Beach",
     icon: TbBeach,
