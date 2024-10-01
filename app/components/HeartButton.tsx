@@ -1,6 +1,9 @@
+"use client";
+
 import { User } from "@prisma/client";
-import React from "react";
+import React, { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import useFavourite from "../hooks/useFavourite";
 
 interface HeartButtonProps {
   currentUser?: User | null;
@@ -8,11 +11,25 @@ interface HeartButtonProps {
 }
 
 const HeartButton = ({ currentUser, listingId }: HeartButtonProps) => {
-  const isFav = false;
-  const toggleFav = () => {};
+  const { hasFavourited, toggleFavourite } = useFavourite({
+    listingId,
+    currentUser,
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <div
-      onClick={toggleFav}
+      onClick={async (e) => {
+        setIsLoading(true);
+        await toggleFavourite(e);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 200);
+      }}
       className="relative hover:opacity-80 cursor-pointer transition"
     >
       <AiOutlineHeart
@@ -21,7 +38,9 @@ const HeartButton = ({ currentUser, listingId }: HeartButtonProps) => {
       />
       <AiFillHeart
         size={24}
-        className={`${isFav ? "fill-rose-500/90" : "fill-neutral-500/70"}`}
+        className={`${
+          hasFavourited ? "fill-rose-500/90" : "fill-neutral-500/70"
+        }`}
       />
     </div>
   );
