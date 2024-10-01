@@ -4,6 +4,7 @@ import useCountries from "@/app/hooks/useCountries";
 import { Listing, User } from "@prisma/client";
 import React from "react";
 import ListingCategory from "./ListingCategory";
+import dynamic from "next/dynamic";
 
 interface ListingInfoProps {
   listing: Listing & { user: User };
@@ -23,6 +24,8 @@ const ListingInfo = ({ listing, category }: ListingInfoProps) => {
   const { getByValue } = useCountries();
 
   const coordinates = getByValue(locationValue)?.latlng;
+
+  const Map = dynamic(() => import("@/app/components/Map"), { ssr: false });
 
   return (
     <div className="col-span-full flex flex-col gap-8 ">
@@ -48,6 +51,7 @@ const ListingInfo = ({ listing, category }: ListingInfoProps) => {
       <hr />
       <div className="text-lg font-bold text-neutral-500">{description}</div>
       <hr />
+      <Map center={coordinates} />
     </div>
   );
 };

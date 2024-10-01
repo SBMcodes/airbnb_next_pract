@@ -23,14 +23,13 @@ interface MapProps {
   center?: number[];
 }
 
-const Map = ({ center }: MapProps) => {
-  console.log("Center: ", center);
+const Map = ({ center, height }: MapProps) => {
   return (
     <MapContainer
       center={(center as L.LatLngExpression) || [51, -0.09]}
       zoom={center ? 5 : 2}
       scrollWheelZoom={false}
-      className="h-[35vh] rounded-lg"
+      className={`aspect-[4/2] rounded-lg`}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {center && <Marker position={center as L.LatLngExpression} />}
