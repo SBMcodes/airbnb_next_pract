@@ -49,6 +49,7 @@ const getReservations = async ({
       },
       include: {
         listing: true,
+        user: true,
       },
       orderBy: {
         createdAt: "desc",

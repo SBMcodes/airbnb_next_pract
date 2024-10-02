@@ -8,10 +8,12 @@ import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 import HeartButton from "../HeartButton";
 import Button from "../Button";
+import { title } from "process";
 
 interface ListingCardProps {
   data: Listing;
   reservation?: Reservation;
+  reserverName?: string | null;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
@@ -27,11 +29,17 @@ const ListingCard = ({
   actionLabel,
   currentUser,
   disabled,
+  reserverName,
 }: ListingCardProps) => {
   const router = useRouter();
   const { getByValue } = useCountries();
 
   const location = getByValue(data.locationValue);
+  let title = `${location?.label} , ${location?.region}`;
+
+  if (reserverName) {
+    title = `Reserved by ${reserverName}`;
+  }
 
   const handleCancel = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -83,9 +91,7 @@ const ListingCard = ({
             <HeartButton currentUser={currentUser} listingId={data.id} />
           </div>
         </div>
-        <div className="font-semibold text-lg">
-          {location?.label} , {location?.region}
-        </div>
+        <div className="font-semibold text-md">{title}</div>
         <div className="font-light text-neutral-500">
           {reservationData || data.category}
         </div>

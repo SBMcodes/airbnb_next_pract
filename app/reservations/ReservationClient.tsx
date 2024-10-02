@@ -8,7 +8,7 @@ import ListingCard from "../components/listings/ListingCard";
 import { Listing, Reservation, User } from "@prisma/client";
 import axios from "axios";
 
-type ReservationListing = Reservation & { listing: Listing };
+type ReservationListing = Reservation & { listing: Listing; user: User };
 
 interface ReservationClientProps {
   reservations: ReservationListing[];
@@ -48,18 +48,21 @@ const ReservationClient = ({
     <Container>
       <Heading title="Reservations" subTitle="Bookings on your properties" />
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
-        {reservations.map((reservation) => (
-          <ListingCard
-            key={reservation.id}
-            data={reservation.listing}
-            reservation={reservation}
-            actionId={reservation.id}
-            onAction={onCancel}
-            disabled={deletingId === reservation.id}
-            actionLabel="Cancel Guest Reservation"
-            currentUser={currentUser}
-          />
-        ))}
+        {reservations.map((reservation) => {
+          return (
+            <ListingCard
+              key={reservation.id}
+              data={reservation.listing}
+              reservation={reservation}
+              actionId={reservation.id}
+              onAction={onCancel}
+              disabled={deletingId === reservation.id}
+              actionLabel="Cancel Guest Reservation"
+              currentUser={currentUser}
+              reserverName={reservation.user.name}
+            />
+          );
+        })}
       </div>
     </Container>
   );
