@@ -11,6 +11,9 @@ import { useRouter } from "next/navigation";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import axios from "axios";
 import toast from "react-hot-toast";
+import ListingReservation from "./ListingReservation";
+
+import { Range } from "react-date-range";
 
 const initialDateRange = {
   key: "selection",
@@ -50,7 +53,7 @@ const ListingClient = ({
 
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
-  const [dateRange, setDateRange] = useState(initialDateRange);
+  const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
   // Set Total Price for reservation
   useEffect(() => {
@@ -60,6 +63,13 @@ const ListingClient = ({
         dateRange.startDate,
         dateRange.endDate
       );
+      if (dayCount < 0) {
+        [dateRange.startDate, dateRange.endDate] = [
+          dateRange.endDate,
+          dateRange.startDate,
+        ];
+        dayCount = Math.abs(dayCount);
+      }
     }
     if (dayCount && listing.price) {
       setTotalPrice(dayCount * listing.price);
@@ -88,7 +98,7 @@ const ListingClient = ({
         router.refresh();
       })
       .catch((error) => {
-        toast.error("Could not create reservation!");
+        toast.error("Could not book reservation!");
       })
       .finally(() => {
         setIsLoading(false);
@@ -105,6 +115,17 @@ const ListingClient = ({
               listing={listing}
               category={category as categoryType}
             />
+            <div className="order-first md:order-last mb-10 md:col-span-3">
+              <ListingReservation
+                dateRange={dateRange}
+                disabled={isLoading}
+                disabledDates={disabledDates}
+                onChangeDate={(value) => setDateRange(value)}
+                price={listing.price}
+                totalPrice={totalPrice}
+                onSubmit={onCreateReservation}
+              />
+            </div>
           </div>
         </div>
       </div>

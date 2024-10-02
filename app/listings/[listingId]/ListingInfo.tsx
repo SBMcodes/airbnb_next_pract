@@ -11,6 +11,8 @@ interface ListingInfoProps {
   category: categoryType;
 }
 
+const Map = dynamic(() => import("@/app/components/Map"), { ssr: false });
+
 const ListingInfo = ({ listing, category }: ListingInfoProps) => {
   const {
     user,
@@ -25,10 +27,8 @@ const ListingInfo = ({ listing, category }: ListingInfoProps) => {
 
   const coordinates = getByValue(locationValue)?.latlng;
 
-  const Map = dynamic(() => import("@/app/components/Map"), { ssr: false });
-
   return (
-    <div className="col-span-full flex flex-col gap-8 ">
+    <div className="col-span-4 flex flex-col gap-8 ">
       <div className="flex flex-col gap-2">
         <div className="text-xl font-semibold flex flex-row items-center gap-4">
           <div>Hosted by {user?.name}</div>
