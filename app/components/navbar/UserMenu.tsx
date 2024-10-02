@@ -45,7 +45,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
           onClick={onRent}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
-          Airbnb your home
+          {`${!currentUser ? "Airbnb your home" : currentUser?.name}`}
         </div>
         <div
           className="p-4 md:px-4 md:py-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
@@ -85,7 +85,12 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                     label={`My Trips`}
                   />
                   <MenuItem onClick={() => {}} label={`My Favourites`} />
-                  <MenuItem onClick={() => {}} label={`My Reservations`} />
+                  <MenuItem
+                    onClick={() => {
+                      router.push("/reservations");
+                    }}
+                    label={`My Reservations`}
+                  />
                   <MenuItem onClick={() => {}} label={`My Properties`} />
                   <MenuItem
                     onClick={rentModal.onOpen}
