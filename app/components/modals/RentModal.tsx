@@ -66,7 +66,6 @@ const RentModal = () => {
   );
 
   const setCustomValue = (id: string, value: any) => {
-    console.log("Image Src: ", value);
     setValue(id, value, {
       shouldDirty: true,
       shouldTouch: true,

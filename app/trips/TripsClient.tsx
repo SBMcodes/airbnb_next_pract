@@ -27,9 +27,12 @@ const TripsClient = ({ reservations, currentUser }: TripsClientProps) => {
         .delete(`/api/reservations/${id}`)
         .then(() => {
           toast.success("Reservation Cancelled!");
-          router.refresh();
+          setTimeout(() => {
+            router.refresh();
+          }, 1000);
         })
         .catch((error) => {
+          console.log(error);
           toast.error(error?.response?.data?.error);
         })
         .finally(() => {
