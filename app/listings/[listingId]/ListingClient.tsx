@@ -63,10 +63,14 @@ const ListingClient = ({
     let dayCount = 0;
     if (dateRange.startDate && dateRange.endDate) {
       dayCount = differenceInCalendarDays(
-        dateRange.startDate,
-        dateRange.endDate
+        dateRange.endDate,
+        dateRange.startDate
       );
-      if (dayCount < 0) {
+      if (dateRange.startDate.getTime() > dateRange.endDate.getTime()) {
+        // const temp = dateRange.startDate;
+        // dateRange.startDate=dateRange.endDate;
+        // dateRange.endDate=temp;
+
         [dateRange.startDate, dateRange.endDate] = [
           dateRange.endDate,
           dateRange.startDate,
@@ -96,9 +100,11 @@ const ListingClient = ({
       })
       .then(() => {
         setDateRange(initialDateRange);
-        // Redirect to /trips
         router.refresh();
         toast.success("Your reservation is been added!");
+        setTimeout(() => {
+          router.push("/trips");
+        }, 1000);
       })
       .catch((error) => {
         console.log(error);

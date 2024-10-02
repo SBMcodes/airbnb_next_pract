@@ -9,6 +9,7 @@ import { logout } from "@/actions/logout";
 import { useRouter } from "next/navigation";
 import { User } from "@prisma/client";
 import useRentModal from "@/app/hooks/useRentModal";
+import useNavMenu from "@/app/hooks/useNavMenu";
 
 interface UserMenuProps {
   currentUser: User | null;
@@ -18,9 +19,10 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
   const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const navMenu = useNavMenu();
   const rentModal = useRentModal();
 
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(navMenu.isOpen);
 
   // const { data, status, update } = useSession();
 
@@ -33,11 +35,11 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
   }, [currentUser, loginModal, rentModal]);
 
   const status = "";
-  const toggleOpen = useCallback(() => {
-    setIsOpen((val) => !val);
-  }, []);
+  const toggleOpen = () => {
+    navMenu.onToggle(!navMenu.isOpen);
+  };
   return (
-    <div className="relative">
+    <div className="relative select-none">
       <div className="flex flex-row items-center gap-3">
         <div
           onClick={onRent}
@@ -55,7 +57,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
           </div>
         </div>
       </div>
-      {isOpen && (
+      {navMenu.isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[180px] bg-white overflow-hidden top-12 right-0 text-sm">
           <div className="flex flex-col cursor-pointer">
             <>
@@ -76,7 +78,12 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                 </>
               ) : (
                 <>
-                  <MenuItem onClick={() => {}} label={`My Trips`} />
+                  <MenuItem
+                    onClick={() => {
+                      router.push("/trips");
+                    }}
+                    label={`My Trips`}
+                  />
                   <MenuItem onClick={() => {}} label={`My Favourites`} />
                   <MenuItem onClick={() => {}} label={`My Reservations`} />
                   <MenuItem onClick={() => {}} label={`My Properties`} />

@@ -34,3 +34,9 @@ export async function POST(request: Request) {
 
   return NextResponse.json(listingReservation);
 }
+
+export async function DELETE(request: Request) {
+  const body = await request.json();
+  const { listingId } = body;
+  console.log("Listing Id Delete: ", listingId);
+}
