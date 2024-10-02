@@ -24,7 +24,7 @@ const initialDateRange = {
 interface ListingClientProps {
   listing: Listing & { user: User };
   currentUser: User | null;
-  reservations?: Reservation[];
+  reservations?: Reservation[] | null;
 }
 
 const ListingClient = ({
@@ -41,13 +41,16 @@ const ListingClient = ({
 
   const disabledDates = useMemo(() => {
     let dDates: Date[] = [];
-    reservations.forEach((r) => {
-      const range = eachDayOfInterval({
-        start: new Date(r.startDate),
-        end: new Date(r.endDate),
+    if (reservations) {
+      reservations.forEach((r) => {
+        const range = eachDayOfInterval({
+          start: new Date(r.startDate),
+          end: new Date(r.endDate),
+        });
+        dDates = [...dDates, ...range];
       });
-      dDates = [...dDates, ...range];
-    });
+    }
+
     return dDates;
   }, [reservations]);
 
@@ -92,10 +95,10 @@ const ListingClient = ({
         listingId: listing?.id,
       })
       .then(() => {
-        toast.success("Your reservation is been added!");
         setDateRange(initialDateRange);
         // Redirect to /trips
         router.refresh();
+        toast.success("Your reservation is been added!");
       })
       .catch((error) => {
         console.log(error);
