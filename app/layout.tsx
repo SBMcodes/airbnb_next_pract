@@ -11,6 +11,7 @@ import LoginModal from "./components/modals/LoginModal";
 import { SessionProvider } from "next-auth/react";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import RentModal from "./components/modals/RentModal";
+import SearchModal from "./components/modals/SearchModal";
 
 export const metadata: Metadata = {
   title: "Airbnb",
@@ -32,6 +33,7 @@ export default async function RootLayout({
       <body className={`${nunitoFont.className} antialiased`}>
         <ClientOnly>
           <ToasterProvider />
+          <SearchModal />
           <LoginModal />
           <RegisterModal />
           <RentModal />

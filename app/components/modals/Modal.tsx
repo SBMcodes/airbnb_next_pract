@@ -66,8 +66,16 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <>
       {/* Inset0: fills the screen */}
-      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70">
-        <div className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 mx-auto h-full md:h-auto">
+      <div
+        className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70"
+        onClick={handleClose}
+      >
+        <div
+          className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 mx-auto h-full md:h-auto"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           {/* Content */}
           <div
             className={`translate duration-300 h-full ${
@@ -79,11 +87,11 @@ const Modal: React.FC<ModalProps> = ({
               <div className="flex items-center p-6 rounded-t justify-center relative border-b-[1px]">
                 <button
                   onClick={handleClose}
-                  className="p-1 border-0 hover:opacity-70 transition absolute left-9"
+                  className="p-1 border-0 hover:opacity-70 transition absolute left-9 text-neutral-500"
                 >
-                  <IoMdClose size={18} />
+                  <IoMdClose size={26} />
                 </button>
-                <div className="text-lg font-semibold">{title}</div>
+                <div className="text-lg font-semibold select-none">{title}</div>
               </div>
               {/* BODY */}
               <div className="relative p-6 flex-auto">{body}</div>
