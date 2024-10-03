@@ -17,7 +17,9 @@ export default auth(async function middleware(req) {
   const pathname = nextUrl.pathname;
 
   const isApiAuthRoute = pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(pathname);
+  const isPublicRoute = publicRoutes.some((p) => {
+    return pathname.startsWith(p);
+  });
   const isAuthRoute = authRoutes.includes(pathname);
 
   if (isApiAuthRoute) {
@@ -35,9 +37,9 @@ export default auth(async function middleware(req) {
     return;
   }
 
-  // if (!isLoggedIn) {
-  //   return Response.redirect(new URL("/auth/login", nextUrl));
-  // }
+  if (!isLoggedIn) {
+    return Response.redirect(new URL("/", nextUrl));
+  }
 });
 
 // Matcher Stolen from:
