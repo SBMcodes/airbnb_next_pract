@@ -11,7 +11,6 @@ interface ImageUploadProps {
 const ImageUpload = ({ onChange, value }: ImageUploadProps) => {
   const handleChange = useCallback(
     (result: any) => {
-      console.log("Image: ", result);
       onChange(result.info.url);
     },
     [onChange]

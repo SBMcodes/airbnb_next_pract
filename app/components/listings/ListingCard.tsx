@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 import HeartButton from "../HeartButton";
 import Button from "../Button";
-import { title } from "process";
 
 interface ListingCardProps {
   data: Listing;

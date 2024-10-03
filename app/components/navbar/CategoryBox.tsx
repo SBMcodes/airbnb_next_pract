@@ -15,6 +15,7 @@ interface CategoryBoxProps {
 const CategoryBox = ({ description, Icon, label }: CategoryBoxProps) => {
   const router = useRouter();
   const params = useSearchParams();
+  console.log(description);
 
   let selected = false;
   if (params) {

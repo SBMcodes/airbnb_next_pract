@@ -31,7 +31,11 @@ export async function DELETE(
       },
     });
     return NextResponse.json(reservation);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { error: "Cancelling Reservation Failed!" },
+      { status: 500 }
+    );
   }
 }

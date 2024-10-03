@@ -1,5 +1,5 @@
 "use client";
-import React, { HTMLAttributes } from "react";
+import React from "react";
 
 interface HeadingProps {
   title: string;

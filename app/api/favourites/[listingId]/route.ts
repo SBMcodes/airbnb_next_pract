@@ -17,7 +17,7 @@ export async function POST(request: Request, { params }: { params: Iparams }) {
     throw new Error("Inavalid ID!");
   }
 
-  let favoriteIds = [...(currentUser.favoriteIds || [])];
+  const favoriteIds = [...(currentUser.favoriteIds || [])];
   favoriteIds.push(listingId);
 
   const user = await db.user.update({

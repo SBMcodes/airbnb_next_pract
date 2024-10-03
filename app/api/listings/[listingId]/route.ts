@@ -28,7 +28,11 @@ export async function DELETE(
       },
     });
     return NextResponse.json(listing);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { error: "Delisting Property Failed!" },
+      { status: 500 }
+    );
   }
 }

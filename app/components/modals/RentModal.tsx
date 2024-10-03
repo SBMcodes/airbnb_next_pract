@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Modal from "./Modal";
 import useRentModal from "@/app/hooks/useRentModal";
 import Heading from "../Heading";

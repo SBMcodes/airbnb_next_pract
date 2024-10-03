@@ -26,7 +26,7 @@ const Search = () => {
     if (startDate && endDate) {
       const start = new Date(startDate as string);
       const end = new Date(endDate as string);
-      let diff = differenceInCalendarDays(end, start) + 1;
+      const diff = differenceInCalendarDays(end, start) + 1;
       return `${diff} days`;
     }
     return "Any Week";

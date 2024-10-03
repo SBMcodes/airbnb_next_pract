@@ -2,7 +2,7 @@ import React from "react";
 import { IconType } from "react-icons";
 
 interface ButtonProps {
-  label: String;
+  label: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   outline?: boolean;

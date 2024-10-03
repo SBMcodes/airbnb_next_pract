@@ -1,17 +1,11 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
+import { useForm } from "react-hook-form";
 
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
-import toast from "react-hot-toast";
-import Button from "../Button";
-import { RegisterSchema } from "@/schemas/RegisterSchema";
-import { register as registerAction } from "@/actions/register";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -95,7 +89,7 @@ const LoginModal = () => {
       /> */}
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="flex flex-row items-center gap-2">
-          <div>Don't have an account?</div>
+          <div>Dont have an account?</div>
           <div
             onClick={toggle}
             className="text-blue-400 cursor-pointer hover:underline"

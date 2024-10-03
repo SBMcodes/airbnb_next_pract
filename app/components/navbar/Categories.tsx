@@ -11,7 +11,6 @@ import {
   GiCastle,
   GiCaveEntrance,
   GiIsland,
-  GiPoolDive,
   GiWindmill,
 } from "react-icons/gi";
 import { MdOutlineVilla } from "react-icons/md";

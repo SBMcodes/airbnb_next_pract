@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import MenuItem from "./MenuItem";
@@ -34,7 +34,6 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
     rentModal.onOpen();
   }, [currentUser, loginModal, rentModal]);
 
-  const status = "";
   const toggleOpen = () => {
     navMenu.onToggle(!navMenu.isOpen);
   };

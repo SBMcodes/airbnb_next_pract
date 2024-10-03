@@ -1,10 +1,7 @@
 "use client";
-import { LoginSchema } from "@/schemas/LoginSchema";
-import { RegisterSchema } from "@/schemas/RegisterSchema";
 import React from "react";
-import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldErrors } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
-import { z } from "zod";
 
 interface InputProps {
   id: "name" | "email" | "password" | string;
